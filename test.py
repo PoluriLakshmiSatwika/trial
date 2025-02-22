@@ -1,26 +1,27 @@
 from flask import Flask, render_template
-import mysql.connector  # Use the appropriate MySQL library
+import psycopg2  # Use psycopg2 for PostgreSQL connection
+from urllib.parse import quote as url_quote
 
 app = Flask(__name__)
 
-# Database configuration
+# Database configuration for PostgreSQL on Render
 db_config = {
-    "host": "Satwika",
-    "user": "system",
-    "password": "root",
-    "database": "spm",
+    "host": "dpg-cus7gfhopnds7397o1l0-a",  # Your Render hostname
+    "database": "spm_he2x",  # Your Render database name
+    "user": "system",  # Your database username
+    "password": "c5WmxUhSETVfxCjt9y6Yu8cxrgzuay2i",  # Your database password
+    "port": "5432",  # Default PostgreSQL port
 }
 
 # Attempt to establish a database connection
 try:
     # Create a database connection
-    db_connection = mysql.connector.connect(**db_config)
+    db_connection = psycopg2.connect(**db_config)
 
     # Check if the connection was successful
-    if db_connection.is_connected():
-        print("Database connection established successfully!")
+    print("Database connection established successfully!")
 
-except mysql.connector.Error as e:
+except psycopg2.Error as e:
     # Handle the error if the connection fails
     print(f"Error connecting to the database: {e}")
 
